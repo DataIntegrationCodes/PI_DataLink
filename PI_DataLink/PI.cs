@@ -1,4 +1,5 @@
 ﻿using OSIsoft.AF.Asset;
+using OSIsoft.AF.PI;
 using OSIsoft.AF.Data;
 using OSIsoft.AF.Time;
 using System;
@@ -11,9 +12,6 @@ namespace PI_DataLink
         public static List<string> StoredData = new List<string>();
         public static List<string> PISearch(string PIServerName,string SaveFilePath, List<string> tagPatterns, string startDate, string EndDate, string Interval,int mode)
         {
-            //var (timeRange, summaryType, summaryDuration, calcBasis, timeType) = OSISoftAFData.AFData(startDate, EndDate, Interval);
-
-
             OSISoftAFData.AFData(startDate,EndDate,Interval).
                 Deconstruct(out AFTimeRange timeRange
                 ,out AFSummaryTypes summaryType
@@ -31,9 +29,9 @@ namespace PI_DataLink
             {
                 try
                 {
-                    IEnumerable<OSIsoft.AF.PI.PIPoint> piPoints = OSIsoft.AF.PI.PIPoint.FindPIPoints(piServer, pattern);
+                    IEnumerable<PIPoint> piPoints = PIPoint.FindPIPoints(piServer, pattern);
 
-                    foreach (OSIsoft.AF.PI.PIPoint piPoint in piPoints)
+                    foreach (PIPoint piPoint in piPoints)
                     {
                         try
                         {
